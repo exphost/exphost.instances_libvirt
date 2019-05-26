@@ -4,15 +4,15 @@
 - name: create vm
   virt:
     command: define
-    xml: "{{lookup('template', 'vm_template.xml')}}"
+    xml: "{{ lookup('template', 'vm_template.xml') }}"
   register: reg_created_vm
 
 - name: start vm
   virt:
-    name: "{{new_instance.value.name}}"
+    name: "{{ new_instance.value.name }}"
     state: running
 
 - name: record created vm
   set_fact:
-    created_vms: "{{created_vms|default([]) + [reg_created_vm.created]}}"
+    created_vms: "{{ created_vms|default([]) + [reg_created_vm.created] }}"
   when: reg_created_vm.created|default(False)

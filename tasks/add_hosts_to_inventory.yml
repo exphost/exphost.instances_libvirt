@@ -9,15 +9,15 @@
 
 - name: select only exphost's hosts
   set_fact:
-    exphosts_hosts: "{{reg_vms.list_vms|select('regex','^exphost.*')|list}}"
+    exphosts_hosts: "{{ reg_vms.list_vms|select('regex','^exphost.*')|list }}"
 
 - name: only exphost
   debug:
     var: exphosts_hosts
 
 - name: get ips for hosts
-  shell: "virsh domifaddr {{item}} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
-  loop: "{{exphosts_hosts}}"
+  shell: "virsh domifaddr {{ item }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
+  loop: "{{ exphosts_hosts }}"
   register: reg_ip
   until: reg_ip.stdout != ''
   become: True
@@ -30,12 +30,12 @@
 
 - name: roles
   debug:
-    msg: "roleS: {{item.item}} -- {{item.stdout}} -- {{iac[item.item.split('-')[1:-1]|join('-')]['roles']}}"
-  loop: "{{reg_ip.results}}"
+    msg: "roleS: {{ item.item }} -- {{ item.stdout }} -- {{ iac[item.item.split('-')[1:-1]|join('-')]['roles'] }}"
+  loop: "{{ reg_ip.results }}"
 
 - name: add hosts to inventory
   add_host:
-    name: "{{item.item}}"
-    ansible_host: "{{item.stdout}}"
-    groups: "{{iac[item.item.split('-')[1:-1]|join('-')]['roles']}}"
-  loop: "{{reg_ip.results}}"
+    name: "{{ item.item }}"
+    ansible_host: "{{ item.stdout }}"
+    groups: "{{ iac[item.item.split('-')[1:-1]|join('-')]['roles'] }}"
+  loop: "{{ reg_ip.results }}"
