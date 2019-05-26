@@ -1,0 +1,5 @@
+instance_types:
+  small:
+    cpu: 2
+    memory: 1024
+
