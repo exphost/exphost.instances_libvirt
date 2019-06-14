@@ -2,6 +2,7 @@
   virt:
     command: list_vms
   register: reg_vms
+  check_mode: False
 
 - name: debug
   debug:
@@ -20,9 +21,12 @@
   loop: "{{ exphosts_hosts }}"
   register: reg_ip
   until: reg_ip.stdout != ''
-  become: True
+  #  become: True
   retries: 10
   changed_when: False
+  environment:
+    LIBVIRT_DEFAULT_URI: "qemu:///system"
+  check_mode: False
 
 - name: hosts with ips
   debug:
@@ -39,3 +43,4 @@
     ansible_host: "{{ item.stdout }}"
     groups: "{{ iac[item.item.split('-')[1:-1]|join('-')]['roles'] }}"
   loop: "{{ reg_ip.results }}"
+  changed_when: False

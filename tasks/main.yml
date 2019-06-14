@@ -29,7 +29,9 @@
   loop: "{{ created_vms|default([]) }}"
   register: reg_ip
   until: "{{ reg_ip.stdout != '' }}"
-  become: True
+  environment:
+    LIBVIRT_DEFAULT_URI: "qemu:///system"
+  #  become: True
   retries: 10
   changed_when: False
 
