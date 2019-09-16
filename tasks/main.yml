@@ -39,4 +39,4 @@
   debug:
     var: reg_ip
 
-- include_tasks: add_hosts_to_inventory.yml
+    #- include_tasks: add_hosts_to_inventory.yml
