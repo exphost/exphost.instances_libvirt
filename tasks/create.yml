@@ -1,6 +1,14 @@
 - name: create disk
   include_role:
     name: exphost.disk.qcow
+- name: lookup uuid if exists
+  virt:
+    command: get_xml
+    guest: "{{new_instance.value.name}}"
+  check_mode: False
+  ignore_errors: True
+  register: reg_existing_vm
+
 - name: create vm
   virt:
     command: define

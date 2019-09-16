@@ -1,5 +1,9 @@
 <domain type='kvm'>
   <name>{{new_instance.value.name}}</name>
+{% if not reg_existing_vm.failed|default(True) %}
+  <uuid>{{reg_existing_vm.get_xml|default('')|regex_findall('<uuid>(.*)</uuid>')|first}}</uuid>
+{% endif %}
+  <description>roles: {{new_instance.value.roles|join(",")}}</description>
   <memory unit='MiB'>{{instance_types[new_instance.value.type].memory}}</memory>
   <currentMemory unit='MiB'>{{instance_types[new_instance.value.type].memory}}</currentMemory>
   <vcpu placement='static'>{{instance_types[new_instance.value.type].cpu}}</vcpu>
