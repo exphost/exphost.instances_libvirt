@@ -25,8 +25,18 @@
     var: created_vms
 
 - name: wait for vms to get ip addr
-  shell: "virsh domifaddr {{ item }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
-  loop: "{{ created_vms|default([]) }}"
+  vars:
+    new_instance: "{{ instance|combine({
+      'value': {
+        'counter': counter,
+        'name': 'exphost-'+instance.key+'-'+counter|string,
+        }
+      }
+      ,recursive=True) }}"
+  shell: "virsh domifaddr {{ new_instance.value.name }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
+  loop: "{{ range(0, instance.value.count|int)|list }}"
+  loop_control:
+    loop_var: counter
   register: reg_ip
   until: "{{ reg_ip.stdout != '' }}"
   environment:
