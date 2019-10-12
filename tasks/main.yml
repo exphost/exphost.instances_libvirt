@@ -38,12 +38,13 @@
   loop_control:
     loop_var: counter
   register: reg_ip
-  until: "{{ reg_ip.stdout != '' }}"
+  until: reg_ip.stdout != ''
   environment:
     LIBVIRT_DEFAULT_URI: "qemu:///system"
   #  become: True
   retries: 10
   changed_when: False
+  check_mode: False
 
 - name: ips
   debug:
