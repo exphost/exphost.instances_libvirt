@@ -8,17 +8,17 @@
   debug:
     var: reg_vms
 
-- name: select only exphost's hosts
+- name: select only current environment hosts
   set_fact:
-    exphosts_hosts: "{{ reg_vms.list_vms|select('regex','^exphost.*')|list }}"
+    current_hosts: "{{ reg_vms.list_vms|select('regex','^'+iac.name+'-.*')|list }}"
 
-- name: only exphost
+- name: only current hosts
   debug:
-    var: exphosts_hosts
+    var: cureent_hosts
 
 - name: get ips for hosts
   shell: "virsh domifaddr {{ item }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
-  loop: "{{ exphosts_hosts }}"
+  loop: "{{ current_hosts }}"
   register: reg_ip
   until: reg_ip.stdout != ''
   #  become: True

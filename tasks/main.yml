@@ -11,7 +11,7 @@
     new_instance: "{{ instance|combine({
       'value': {
         'counter': counter,
-        'name': 'exphost-'+instance.key+'-'+counter|string,
+        'name': iac.name+'-'+instance.key+'-'+counter|string,
         }
       }
       ,recursive=True) }}"
@@ -29,7 +29,7 @@
     new_instance: "{{ instance|combine({
       'value': {
         'counter': counter,
-        'name': 'exphost-'+instance.key+'-'+counter|string,
+        'name': iac.name+'-'+instance.key+'-'+counter|string,
         }
       }
       ,recursive=True) }}"
