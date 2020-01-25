@@ -36,7 +36,10 @@
     </controller>
     <controller type='pci' index='0' model='pci-root'/>
     <interface type='network'>
-      <source network='default'/>
+      {% if new_instance.value.mac_addresses[counter] is defined %}
+      <mac address="{{new_instance.value.mac_addresses[counter]}}"/>
+      {% endif %}
+      <source network='{{new_instance.value.network}}'/>
       <model type='virtio'/>
       <address type='pci' domain='0x0000' bus='0x00' slot='0x05' function='0x0'/>
     </interface>
