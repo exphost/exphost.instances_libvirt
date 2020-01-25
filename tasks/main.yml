@@ -33,7 +33,7 @@
         }
       }
       ,recursive=True) }}"
-  shell: "virsh domifaddr {{ new_instance.value.name }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
+  shell: "virsh domifaddr --domain {{ new_instance.value.name }} --source agent --interface eth0 |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
   loop: "{{ range(0, instance.value.count|int)|list }}"
   loop_control:
     loop_var: counter
