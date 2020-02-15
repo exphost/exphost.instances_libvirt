@@ -6,23 +6,7 @@
   debug:
     var: instance
 
-- name: create vm
-  vars:
-    new_instance: "{{ instance|combine({
-      'value': {
-        'counter': counter,
-        'name': iac.name+'-'+instance.key+'-'+counter|string,
-        }
-      }
-      ,recursive=True) }}"
-  include_tasks: create.yml
-  loop: "{{ range(0, instance.value.count|int)|list }}"
-  loop_control:
-    loop_var: counter
-
-- name: debug
-  debug:
-    var: created_vms
+- include_tasks: terraform.yml
 
 - name: wait for vms to get ip addr
   vars:
@@ -49,5 +33,3 @@
 - name: ips
   debug:
     var: reg_ip
-
-    #- include_tasks: add_hosts_to_inventory.yml
