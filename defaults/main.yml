@@ -1,2 +1,2 @@
-terraform_path: /tmp/aass/terraform
-terraform_tmp_path: /tmp/aass
+terraform_path: terraform
+terraform_tmp_path: /tmp/terraform_tmp
