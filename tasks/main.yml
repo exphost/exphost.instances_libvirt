@@ -29,6 +29,9 @@
   retries: 10
   changed_when: False
   check_mode: False
+- name: wait 5 sec for sure
+  pause:
+    seconds: 5
 
 - name: ips
   debug:
