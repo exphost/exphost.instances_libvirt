@@ -1,0 +1,5 @@
+users_admins:
+  - user: torgiren
+    group: wheel
+    password: "$6$ts5lUOi5D8/00RtX$RsrRmpR5K4zEZlYw2uQwlYpfwZqIivTjLGzCoceThZzWezRp/OwmSKbAOpK4ZfkAyB9HOUew3TNsN5OmhQbx6/"
+    home: "/home/torgiren"

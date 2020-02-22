@@ -1,0 +1,41 @@
+iac:
+  name: abc_testing
+  hosts:
+    test1:
+      roles:
+        - aaa
+        - bbb
+        - ccc
+      count: 2
+      networks:
+        - name: static_lan
+          mac_addresses:
+            - "52:54:00:10:00:03"
+            - "52:54:00:10:00:04"
+      provider:
+        name: exphost.instances.libvirt
+        configs:
+          uri: "qemu:///system"
+      type: small
+      disks:
+        - name: sda
+          pool: "default"
+          base_name: "base_centos7.img"
+    test2:
+      roles:
+        - eee
+        - fff
+        - ccc
+      count: 2
+      networks:
+        - name: static_lan
+          mac_addresses_mask: "52:54:00:10:00"
+      provider:
+        name: exphost.instances.libvirt
+        configs:
+          uri: "qemu:///system"
+      type: small
+      disks:
+        - name: sda
+          pool: "default"
+          base_name: "base_centos7.img"

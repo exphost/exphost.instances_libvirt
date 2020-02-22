@@ -1,0 +1,29 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: delegated
+  options:
+    managed: True
+    ansible_connection_options:
+      ansible_connection: ssh
+
+platforms:
+  - name: platform_none
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ./roles:${VIRTUAL_ENV}/fabsible/roles:/tmp/zzz
+  ansible_args:
+  - -e FABSIBLE_BASE=${VIRTUAL_ENV}
+  - -e FABSIBLE_CWD={{molecule_scenario_directory}}
+  - -l all,localhost,!platform_none
+  inventory:
+    links:
+      group_vars: inventory/group_vars
+      hosts: inventory
+
+verifier:
+  name: testinfra
+  options:
+    ansible-inventory: inventory/libvirt-inventory.py
