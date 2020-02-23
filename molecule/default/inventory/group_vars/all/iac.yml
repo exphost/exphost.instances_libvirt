@@ -15,7 +15,7 @@ iac:
       provider:
         name: exphost.instances.libvirt
         configs:
-          uri: "qemu:///system"
+          uri: "qemu+tcp://192.168.0.15:5000/system"
       type: small
       disks:
         - name: sda
@@ -33,7 +33,7 @@ iac:
       provider:
         name: exphost.instances.libvirt
         configs:
-          uri: "qemu:///system"
+          uri: "qemu+tcp://192.168.0.15:5000/system"
       type: small
       disks:
         - name: sda

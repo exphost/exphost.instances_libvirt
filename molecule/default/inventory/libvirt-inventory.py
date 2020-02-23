@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 ### conf section
-URI = 'qemu:///system'
+URI = 'qemu+tcp://192.168.0.15:5000/system'
 NAME_FILTER = 'placeholder'
 STATE_MASK = None
 STATE_MASK = [0,1,2,3,4,5,6,7,8]
