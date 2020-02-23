@@ -4,15 +4,17 @@
   connection: local
   gather_facts: false
   tasks:
-    - stat:
-        path: "{{terraform_tmp_path}}/{{item}}"
-      loop: "{{iac.hosts|list}}"
+    - name: "find existing hosts"
+      stat:
+        path: "{{ terraform_tmp_path }}/{{ item }}"
+      loop: "{{ iac.hosts|list }}"
       register: existing_test_paths
       #- debug:
       #    msg: "{{existing_test_paths}}"
-    - terraform:
-        binary_path: "{{terraform_path}}"
-        project_path: "{{terraform_tmp_path}}/{{item.item}}"
+    - name: destroy hosts
+      terraform:
+        binary_path: "{{ terraform_path }}"
+        project_path: "{{ terraform_tmp_path }}/{{ item.item }}"
         state: absent
       when: item.stat.exists
-      loop: "{{existing_test_paths.results}}"
+      loop: "{{ existing_test_paths.results }}"

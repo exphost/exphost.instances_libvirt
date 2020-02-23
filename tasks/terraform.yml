@@ -1,20 +1,20 @@
 - block:
   - name: create project dir
     file:
-      path: "{{item}}"
+      path: "{{ item }}"
       state: directory
     with_items:
-      - "{{terraform_tmp_path}}/{{instance.key}}"
+      - "{{ terraform_tmp_path }}/{{ instance.key }}"
 
   - name: copy terraform manifest
     template:
       src: terraform.tf
-      dest: "{{terraform_tmp_path}}/{{instance.key}}/{{instance.key}}.tf"
+      dest: "{{ terraform_tmp_path }}/{{ instance.key }}/{{ instance.key }}.tf"
 
   - name: apply terraform
     terraform:
-      binary_path: "{{terraform_path}}"
-      project_path: "{{terraform_tmp_path}}/{{instance.key}}"
+      binary_path: "{{ terraform_path }}"
+      project_path: "{{ terraform_tmp_path }}/{{ instance.key }}"
       force_init: true
 
   delegate_to: localhost

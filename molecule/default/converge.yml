@@ -1,2 +1,2 @@
 ---
-- import_playbook: "{{FABSIBLE_BASE}}/fabsible/playbooks/site.yml"
+- import_playbook: "{{ FABSIBLE_BASE }}/fabsible/playbooks/site.yml"

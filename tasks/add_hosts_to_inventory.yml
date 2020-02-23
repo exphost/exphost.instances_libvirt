@@ -17,10 +17,12 @@
     var: cureent_hosts
 
 - name: get ips for hosts
-  shell: "virsh domifaddr {{ item }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/"
+  shell: |
+    set -o pipefail
+    virsh domifaddr {{ item }} |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/
   loop: "{{ current_hosts }}"
   register: reg_ip
-  until: reg_ip.stdout != ''
+  until: reg_ip.stdout
   #  become: True
   retries: 10
   changed_when: False
