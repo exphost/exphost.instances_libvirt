@@ -13,7 +13,7 @@ resource "libvirt_volume" "volume_{{iac.name}}-{{instance.key}}-{{count}}-{{disk
 
 resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
     name = "{{iac.name}}-{{instance.key}}-{{count}}"
-    description = "roles: {{instance.value.roles|join(',')}}"
+    description = "roles: {{instance.value.roles|join(',')}}\ncluster: {{iac.name}}"
     vcpu = {{instance_types[instance.value.type].cpu}}
     memory = {{instance_types[instance.value.type].memory}}
 
