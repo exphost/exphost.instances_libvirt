@@ -25,7 +25,12 @@ resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
 {%   endfor %}
 {%   for network in instance.value.networks|default([]) %}
     network_interface {
+{%     if network.name|default(false) %}
         network_name = "{{network.name}}"
+{%     endif %}
+{%     if network.bridge|default(false) %}
+        bridge = "{{network.bridge}}"
+{%     endif %}
 {%     if network.mac_addresses|default(false) %}
 {%       if count < network.mac_addresses|length %}
         mac            = "{{network.mac_addresses[count]}}"
