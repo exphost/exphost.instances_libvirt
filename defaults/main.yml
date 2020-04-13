@@ -1,2 +1,2 @@
 terraform_path: /usr/bin/terraform
-terraform_tmp_path: /tmp/terraform_tmp
+terraform_tmp_path: "{{FABSIBLE_CWD|default('/tmp')}}/terraform_tmp"
