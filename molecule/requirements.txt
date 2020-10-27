@@ -16,7 +16,7 @@ click-completion==0.5.2
 click-help-colors==0.6
 colorama==0.4.3
 cookiecutter==1.7.0
-cryptography==2.8
+cryptography==3.2
 distlib==0.3.0
 fabsible==0.0.4
 fasteners==0.15
