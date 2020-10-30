@@ -11,6 +11,11 @@
       src: terraform.tf
       dest: "{{ terraform_tmp_path }}/{{ instance.key }}/{{ instance.key }}.tf"
 
+  - name: copy qemu xslt
+    copy:
+      src: qemu.xslt
+      dest: "{{ terraform_tmp_path }}/{{ instance.key }}/qemu.xslt"
+
   - name: apply terraform
     terraform:
       binary_path: "{{ terraform_path }}"

@@ -43,5 +43,9 @@ resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
 {%     endif %}
     }
 {%   endfor %}
+
+    xml {
+        xslt = file("qemu.xslt")
+    }
 }
 {% endfor %}
