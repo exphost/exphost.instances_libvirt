@@ -6,7 +6,11 @@ provider "libvirt" {
 resource "libvirt_volume" "volume_{{iac.name}}-{{instance.key}}-{{count}}-{{disk.name}}" {
     name = "volume_{{iac.name}}-{{instance.key}}-{{count}}-{{disk.name}}"
     pool = "{{disk.pool}}"
+{%  if disk.base_name|default(False) %}
     base_volume_name = "{{disk.base_name}}"
+{%  elif disk.source|default(False) %}
+    source = "{{disk.source}}"
+{%  endif %}
 }
 
 {%   endfor %}
