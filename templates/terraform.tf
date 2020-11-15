@@ -1,6 +1,18 @@
 provider "libvirt" {
     uri = "qemu:///system"
 }
+
+{% if instance.value.user_data|default(False) %}
+resource "libvirt_cloudinit_disk" "cloudinit-{{iac.name}}-{{instance.key}}" {
+  name           = "cloundinit-{{iac.name}}-{{instance.key}}.iso"
+  user_data      = <<EOF
+#cloud-config
+{{instance.value.user_data|default('')|to_nice_yaml(indent=2)}}
+EOF
+  pool = "{{instance.value.disks[0].pool}}"
+}
+{% endif %}
+
 {% for count in range(instance.value.count) %}
 {%   for disk in instance.value.disks|default([]) %}
 resource "libvirt_volume" "volume_{{iac.name}}-{{instance.key}}-{{count}}-{{disk.name}}" {
@@ -20,6 +32,10 @@ resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
     description = "roles: {{instance.value.roles|join(',')}}\ncluster: {{iac.name}}"
     vcpu = {{instance_types[instance.value.type].cpu}}
     memory = {{instance_types[instance.value.type].memory}}
+
+{% if instance.value.user_data|default(False) %}
+    cloudinit = libvirt_cloudinit_disk.cloudinit-{{iac.name}}-{{instance.key}}.id
+{%  endif %}
 
 {%    for disk in instance.value.disks|default([]) %}
     disk {
