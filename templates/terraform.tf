@@ -1,5 +1,5 @@
 provider "libvirt" {
-    uri = "qemu:///system"
+    uri = "{{ lookup('env', 'QEMU_URI') | default('qemu:///system', true) }}"
 }
 
 {% if instance.value.user_data|default(False) %}
