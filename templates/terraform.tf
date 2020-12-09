@@ -1,6 +1,15 @@
 provider "libvirt" {
     uri = "{{ lookup('env', 'QEMU_URI') | default('qemu:///system', true) }}"
 }
+terraform {
+ required_version = ">= 0.13"
+  required_providers {
+    libvirt = {
+      source  = "dmacvicar/libvirt"
+      version = "0.6.3"
+    }
+  }
+}
 
 {% if instance.value.user_data|default(False) %}
 resource "libvirt_cloudinit_disk" "cloudinit-{{iac.name}}-{{instance.key}}" {
