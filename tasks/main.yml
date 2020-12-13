@@ -19,7 +19,7 @@
       ,recursive=True) }}"
   shell: |
     set -o pipefail
-    virsh -c {{ lookup('env', 'QEMU_URI')|default('qemu:///system', true) }} domifaddr --domain {{ new_instance.value.name }} --source agent --interface eth0 |tail -n+3|head -n1|awk '{print $4}'|cut -f1 -d/
+    virsh -c {{ lookup('env', 'QEMU_URI')|default('qemu:///system', true) }} domifaddr --domain {{ new_instance.value.name }} --source agent --interface eth0 |grep ipv4|awk '{print $4}'|cut -f1 -d/|head -n1
   loop: "{{ range(0, instance.value.count|int)|list }}"
   loop_control:
     loop_var: counter
