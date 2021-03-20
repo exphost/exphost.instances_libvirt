@@ -42,6 +42,10 @@ resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
     vcpu = {{instance_types[instance.value.type].cpu}}
     memory = {{instance_types[instance.value.type].memory}}
 
+    cpu = {
+      mode = "host-passthrough" 
+    }
+
 {% if instance.value.user_data|default(False) %}
     cloudinit = libvirt_cloudinit_disk.cloudinit-{{iac.name}}-{{instance.key}}.id
 {%  endif %}
