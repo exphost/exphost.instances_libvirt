@@ -32,6 +32,10 @@ resource "libvirt_volume" "volume_{{iac.name}}-{{instance.key}}-{{count}}-{{disk
 {%  elif disk.source|default(False) %}
     source = "{{disk.source}}"
 {%  endif %}
+
+{%  if disk.size | default(False) %}
+    size = "{{ disk.size|human_to_bytes }}"
+{%  endif %}
 }
 
 {%   endfor %}
