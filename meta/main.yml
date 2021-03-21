@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: instances.libvirt
+  role_name: instances_libvirt
   author: TORGiren
   description: Create instances on libvirt
   company: exphost
