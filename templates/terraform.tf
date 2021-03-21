@@ -1,5 +1,5 @@
 provider "libvirt" {
-    uri = "{{ lookup('env', 'QEMU_URI') | default('qemu:///system', true) }}"
+    uri = "{{ lookup('env', 'QEMU_URI') | default( instance.value.provider.configs.uri | default('qemu:///system', true) , true) }}"
 }
 terraform {
  required_version = ">= 0.13"
