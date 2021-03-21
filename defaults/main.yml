@@ -1,2 +1,6 @@
 terraform_path: /usr/bin/terraform
 terraform_tmp_path: "{{FABSIBLE_CWD|default('/tmp')}}/terraform_tmp"
+instance_types:
+  small:
+    cpu: 2
+    memory: 1024
