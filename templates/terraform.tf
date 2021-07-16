@@ -58,6 +58,7 @@ resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
     disk {
         volume_id = libvirt_volume.volume_{{iac.name}}-{{instance.key}}-{{count}}-{{disk.name}}.id
         scsi      = "true"
+        wwn       = "{{ '%016d' % loop.index0 }}"
     }
 {%   endfor %}
 {%   for network in instance.value.networks|default([]) %}
