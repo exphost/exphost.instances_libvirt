@@ -2,11 +2,11 @@ provider "libvirt" {
     uri = "{{ lookup('env', 'QEMU_URI') | default( instance.value.provider.configs.uri | default('qemu:///system', true) , true) }}"
 }
 terraform {
- required_version = ">= 0.13"
+  required_version = ">= 0.13"
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
-      version = "0.6.3"
+      version = "0.6.10"
     }
   }
 }
