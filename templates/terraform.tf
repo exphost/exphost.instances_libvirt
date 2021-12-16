@@ -2,11 +2,10 @@ provider "libvirt" {
     uri = "{{ lookup('env', 'QEMU_URI') | default( instance.value.provider.configs.uri | default('qemu:///system', true) , true) }}"
 }
 terraform {
-  required_version = ">= 0.13"
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
-      version = "0.6.10"
+      version = "0.6.12"
     }
   }
 }
@@ -46,7 +45,7 @@ resource "libvirt_domain" "{{iac.name}}-{{instance.key}}-{{count}}" {
     vcpu = {{instance_types[instance.value.type].cpu}}
     memory = {{instance_types[instance.value.type].memory}}
 
-    cpu = {
+    cpu {
       mode = "host-passthrough" 
     }
 
